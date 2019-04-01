@@ -48,24 +48,13 @@ public class OrdersEntity {
     @Column(name = "shippedDate", nullable = false)
     public Date getShippedDate() {
 
-        if (shippedDate == null){
-            java.util.Date uDate = new java.util.Date();
-            java.sql.Date sDate = new java.sql.Date(uDate.getTime());
-            return sDate;
-        } else {
-            return shippedDate;
-        }
+        return shippedDate;
 
     }
 
     public void setShippedDate(Date shippedDate) {
-        if (shippedDate == null){
-            java.util.Date uDate = new java.util.Date();
-            java.sql.Date sDate = new java.sql.Date(uDate.getTime());
-            this.shippedDate = sDate;
-        } else {
-            this.shippedDate = shippedDate;
-        }
+
+        this.shippedDate = shippedDate;
 
     }
 
