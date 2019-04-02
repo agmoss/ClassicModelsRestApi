@@ -4,11 +4,10 @@ import com.agmoss.ClassicModelsRestApi.exception.ResourceNotFoundException;
 import com.agmoss.ClassicModelsRestApi.model.OrdersEntity;
 import com.agmoss.ClassicModelsRestApi.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,17 +19,53 @@ public class OrderController {
 
     @GetMapping("/orders")
     public List<OrdersEntity> getAllOrders(){
-
         return orderRepository.findAll();
-
     }
 
-    // Get a Single Note
+    // Get a Single Order
     @GetMapping("/orders/{id}")
-    public OrdersEntity getNoteById(@PathVariable(value = "id") int orderId) {
+    public OrdersEntity getOrderById(@PathVariable(value = "id") int orderId) {
         return orderRepository.findById(orderId)
-                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", orderId));
+                .orElseThrow(() -> new ResourceNotFoundException("Order", "id", orderId));
     }
 
+    // Create a new order
+    @PostMapping("/orders")
+    public OrdersEntity createOrder(@Valid @RequestBody OrdersEntity order) {
+        return orderRepository.save(order);
+    }
+
+    // Update an order
+    @PutMapping("/orders/{id}")
+    public OrdersEntity updateOrder(@PathVariable(value = "id") Integer orderId,
+                           @Valid @RequestBody OrdersEntity orderDetails) {
+
+        OrdersEntity order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order", "id", orderId));
+
+        order.setComments(orderDetails.getComments());
+        order.setOrderDate(orderDetails.getOrderDate());
+        order.setRequiredDate(orderDetails.getRequiredDate());
+        order.setShippedDate(orderDetails.getShippedDate());
+        order.setStatus(orderDetails.getStatus());
+
+        //Same order number (id)
+        order.setOrderNumber(orderId);
+
+        OrdersEntity updatedOrder = orderRepository.save(order);
+
+        return updatedOrder;
+    }
+
+    // Delete a order
+    @DeleteMapping("/orders/{id}")
+    public ResponseEntity<?> deleteOrder(@PathVariable(value = "id") Integer orderId) {
+        OrdersEntity order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order", "id", orderId));
+
+        orderRepository.delete(order);
+
+        return ResponseEntity.ok().build();
+    }
 
 }

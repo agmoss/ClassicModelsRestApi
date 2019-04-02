@@ -1,9 +1,16 @@
 package com.agmoss.ClassicModelsRestApi.model;
 
+import com.fasterxml.jackson.annotation.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "orders", schema = "classicmodels", catalog = "")
 public class OrdersEntity {
@@ -13,6 +20,27 @@ public class OrdersEntity {
     private Date shippedDate;
     private String status;
     private String comments;
+
+
+    @OneToMany(
+            mappedBy = "orders",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            targetEntity = OrderdetailsEntity.class
+    )
+    @ElementCollection(targetClass=OrderdetailsEntity.class)
+    private List<OrderdetailsEntity> details = new ArrayList<>();
+
+    public void addDetail(OrderdetailsEntity detail){
+        details.add(detail);
+        detail.setOrder(this);
+
+    }
+
+    public void removeDetail(OrderdetailsEntity detail){
+        details.remove(detail);
+        detail.setOrder(null);
+    }
 
     @Id
     @Column(name = "orderNumber", nullable = false)
@@ -48,24 +76,13 @@ public class OrdersEntity {
     @Column(name = "shippedDate", nullable = false)
     public Date getShippedDate() {
 
-        if (shippedDate == null){
-            java.util.Date uDate = new java.util.Date();
-            java.sql.Date sDate = new java.sql.Date(uDate.getTime());
-            return sDate;
-        } else {
-            return shippedDate;
-        }
+        return shippedDate;
 
     }
 
     public void setShippedDate(Date shippedDate) {
-        if (shippedDate == null){
-            java.util.Date uDate = new java.util.Date();
-            java.sql.Date sDate = new java.sql.Date(uDate.getTime());
-            this.shippedDate = sDate;
-        } else {
-            this.shippedDate = shippedDate;
-        }
+
+        this.shippedDate = shippedDate;
 
     }
 
@@ -106,4 +123,6 @@ public class OrdersEntity {
     public int hashCode() {
         return Objects.hash(orderNumber, orderDate, requiredDate, shippedDate, status, comments);
     }
+
+
 }
