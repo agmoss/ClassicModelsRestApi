@@ -19,9 +19,7 @@ public class OrderController {
 
     @GetMapping("/orders")
     public List<OrdersEntity> getAllOrders(){
-
         return orderRepository.findAll();
-
     }
 
     // Get a Single Order
