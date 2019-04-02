@@ -11,8 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface OrderDetailsRepository extends JpaRepository<OrderdetailsEntity,Integer> {
-    //Page<OrderdetailsEntity> findByOrderId(Integer orderId, Pageable pageable);
-   // Optional<OrderdetailsEntity> findByIdAndOrderId(Integer id, Integer orderId);
 
-    List<OrderdetailsEntity> findByorderNumber(Integer orderId);
+    List<OrderdetailsEntity> findByorderNumber(Integer orderId); // Not really necessary
 }

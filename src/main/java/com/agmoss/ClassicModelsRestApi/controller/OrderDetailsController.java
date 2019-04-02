@@ -24,28 +24,12 @@ public class OrderDetailsController {
     @Autowired
     private OrderRepository orderRepository;
 
-/*    @GetMapping("/orders/{orderId}/orderdetails")
-    public Page<OrderdetailsEntity> getAllDetailsByOrderId(@PathVariable (value = "orderId") Integer orderId,
-                                                           Pageable pageable) {
-
-        return orderDetailsRepository.findAll();
-
-        return orderDetailsRepository.findByOrderId(orderId,pageable);
-    }*/
-
     //@GetMapping("/orders/{orderId}/orderdetails")
     @RequestMapping(method = RequestMethod.GET, value = "/orders/{ordernumber}/orderdetails")
     public List<OrderdetailsEntity> getAllOrderDetailsByOrderId(@PathVariable (value = "ordernumber") Integer orderId){
 
-        System.out.println("Here");
-
         return orderDetailsRepository.findByorderNumber(orderId);
 
-
-                //.orElseThrow(() -> new ResourceNotFoundException("Order", "id", orderId));
-
     }
-
-
 
 }

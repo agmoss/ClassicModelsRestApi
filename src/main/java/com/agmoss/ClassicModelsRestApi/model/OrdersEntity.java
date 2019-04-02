@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
@@ -20,16 +21,26 @@ public class OrdersEntity {
     private Date shippedDate;
     private String status;
     private String comments;
+    private int customerNumber;
 
+    private List<OrderdetailsEntity> details = new ArrayList<>();
 
     @OneToMany(
-            mappedBy = "orders",
+            mappedBy = "order",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
-            targetEntity = OrderdetailsEntity.class
+            targetEntity = OrderdetailsEntity.class,
+            fetch = FetchType.LAZY
     )
     @ElementCollection(targetClass=OrderdetailsEntity.class)
-    private List<OrderdetailsEntity> details = new ArrayList<>();
+    @JsonIgnoreProperties("order") //Avoids stack overflow
+    public List<OrderdetailsEntity> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<OrderdetailsEntity> details) {
+        this.details = details;
+    }
 
     public void addDetail(OrderdetailsEntity detail){
         details.add(detail);
@@ -104,6 +115,16 @@ public class OrdersEntity {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    @Basic
+    @Column(name = "customerNumber", nullable = false)
+    public int getCustomerNumber() {
+        return customerNumber;
+    }
+
+    public void setCustomerNumber(int custNum) {
+        this.customerNumber = custNum;
     }
 
     @Override
