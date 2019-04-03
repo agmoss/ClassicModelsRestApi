@@ -1,4 +1,4 @@
-# Run a mvn package in the top level directory
+# Run a 'mvn package' in the top level directory
 FROM openjdk:8-jdk-alpine
 
 LABEL maintainer="agordonmoss@gmail.com"
@@ -7,7 +7,9 @@ LABEL maintainer="agordonmoss@gmail.com"
 VOLUME /tmp
 
 # Make port 8080 available outside this container
-EXPOSE 8080
+# for some reason tomcat is running on 8084...
+EXPOSE 8084
+EXPOSE 80
 
 # The application's jar file
 ARG JAR_FILE=target/ClassicModelsRestApi-0.0.1-SNAPSHOT.jar

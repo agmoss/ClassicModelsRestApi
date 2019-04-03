@@ -59,7 +59,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-
 	</dependencies>
 
 	<build>
@@ -68,20 +67,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
-<!--			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>com.agmoss.ClassicModelsRestApi.ClassicModelsRestApiApplication</mainClass>
-						</manifest>
-					</archive>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				</configuration>
-			</plugin>-->
 
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
@@ -105,8 +90,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
-
 
 		</plugins>
 	</build>
