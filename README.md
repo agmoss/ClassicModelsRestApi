@@ -1,6 +1,6 @@
 # Restful CRUD API
 
-A restful web service for the Classic Models Sample database. A copy of the database can be found [here](http://www.mysqltutorial.org/mysql-sample-database.aspx).
+A restful web service for the Classic Models sample database. A copy of the database can be found [here](http://www.mysqltutorial.org/mysql-sample-database.aspx).
 
 ### Endpoints
 
