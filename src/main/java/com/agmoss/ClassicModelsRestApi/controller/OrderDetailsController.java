@@ -17,7 +17,7 @@ public class OrderDetailsController {
     @Autowired
     private OrderDetailsRepository orderDetailsRepository;
 
-
+    // Get all order details for an order
     @RequestMapping(method = RequestMethod.GET, value = "/orders/{ordernumber}/orderdetails")
     public List<OrderdetailsEntity> getAllOrderDetailsByOrderId(@PathVariable(value = "ordernumber") Integer orderId) {
 
