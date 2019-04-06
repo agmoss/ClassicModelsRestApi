@@ -1,7 +1,6 @@
 package com.agmoss.ClassicModelsRestApi.controller;
 
 import com.agmoss.ClassicModelsRestApi.exception.ResourceNotFoundException;
-import com.agmoss.ClassicModelsRestApi.model.OrderdetailsEntity;
 import com.agmoss.ClassicModelsRestApi.model.OrdersEntity;
 import com.agmoss.ClassicModelsRestApi.repository.OrderDetailsRepository;
 import com.agmoss.ClassicModelsRestApi.repository.OrderRepository;
