@@ -27,8 +27,8 @@ public class OrdersEntity {
 
     @OneToMany(
             mappedBy = "order",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
+            //cascade = CascadeType.ALL,
+            //orphanRemoval = true,
             targetEntity = OrderdetailsEntity.class,
             fetch = FetchType.LAZY
     )
